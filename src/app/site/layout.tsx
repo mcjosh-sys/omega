@@ -1,11 +1,14 @@
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import { dark } from '@clerk/themes'
 import Navigation from "@/components/site/navigation";
 
-export default function SiteLayout(
+export default async function SiteLayout(
   { children }:
     { children: React.ReactNode }
 ) {
+
+  const user = await currentUser()
+
   return (
     <ClerkProvider
       appearance={{
@@ -13,7 +16,7 @@ export default function SiteLayout(
       }}
     >
       <main className="h-full">
-        <Navigation />
+        <Navigation user={user} />
         {children}
       </main>
     </ClerkProvider>

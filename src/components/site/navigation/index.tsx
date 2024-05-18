@@ -39,13 +39,16 @@ const Navigation: React.FC<NavigationProps> = ({ user }) => {
                 </ul>
             </nav>
             <aside className="flex gap-2 items-center">
-                <Link
-                    href='/agency'
-                    className="bg-primary text-white p-2 px-4 rounded-md hover:bg-primary/80 transition-colors duration-500"
-                >
-                    Login
-                </Link>
-                <UserButton />
+                {user ?
+                    <UserButton />
+                    :
+                    <Link
+                        href='/agency'
+                        className="bg-primary text-white p-2 px-4 rounded-md hover:bg-primary/80 transition-colors duration-500"
+                    >
+                        Login
+                    </Link>
+                }
                 <ModeToggle />
             </aside>
         </div>

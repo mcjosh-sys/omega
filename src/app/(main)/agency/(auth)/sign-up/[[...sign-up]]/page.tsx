@@ -2,7 +2,7 @@ import { SignUp } from '@clerk/nextjs'
 
 const Page = () => {
   return (
-    <SignUp />
+    <SignUp afterSignInUrl='/agency' afterSignUpUrl='/agency' />
   )
 }
 
