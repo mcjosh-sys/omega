@@ -6,16 +6,11 @@ const Layout = ({ children }:
     { children: React.ReactNode }
 ) => {
     return (
-        <ClerkProvider
-            appearance={{
-                baseTheme: dark
-            }}
-        >
+        <>
             <TooltipProvider>
-
                 {children}
             </TooltipProvider>
-        </ClerkProvider>
+        </>
     )
 }
 

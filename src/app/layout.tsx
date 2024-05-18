@@ -7,6 +7,9 @@ import { ThemeProvider } from "../providers/theme-provider";
 import ModalProvider from "../providers/modal-provider"
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "sonner";
+import { ClerkProvider } from "@clerk/nextjs";
+
+import { dark } from '@clerk/themes'
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -21,21 +24,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={dmSans.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ModalProvider>
-            <Toaster />
-            <SonnerToaster richColors/>
-            {children}
-          </ModalProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark
+      }}
+    >
+      <html lang="en">
+        <body className={dmSans.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ModalProvider>
+              <Toaster />
+              <SonnerToaster richColors />
+              {children}
+            </ModalProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
