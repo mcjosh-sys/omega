@@ -28,6 +28,7 @@ const Page = async ({ params }: { params: { domain: string } }) => {
       subaccountId={domainData.subAccountId}
       pageDetails={pageData}
       funnelId={domainData.id}
+      favicon={domainData.favicon}
     >
       <FunnelEditor
         funnelPageId={pageData.id}
