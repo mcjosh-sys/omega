@@ -36,6 +36,8 @@ const Page = async ({ params: { agencyId }, searchParams: { code } }: Props) => 
     where: { id: agencyId }
   })
 
+  // console.log({ agencyDetails })
+
   if (!agencyDetails) return
 
   const subaccounts = await db.subAccount.findMany({
