@@ -3,6 +3,21 @@ import { getDomainContent } from '@/lib/queries'
 import EditorProvider from '@/providers/editor/editor-provider'
 import { notFound } from 'next/navigation'
 import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor'
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string };
+}): Promise<Metadata> {
+  const domainData = await getDomainContent(params.domain);
+  if(domainData){
+    return {
+      title: domainData.name,
+    };
+  }
+  return {}
+}
 
 const Page = async ({ params }: { params: { domain: string } }) => {
   const domainData = await getDomainContent(params.domain)
@@ -37,5 +52,6 @@ const Page = async ({ params }: { params: { domain: string } }) => {
     </EditorProvider>
   )
 }
+
 
 export default Page
