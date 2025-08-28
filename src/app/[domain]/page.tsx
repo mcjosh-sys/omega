@@ -8,15 +8,28 @@ import { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: { domain: string };
+  params: { domain: string; path: string };
 }): Promise<Metadata> {
   const domainData = await getDomainContent(params.domain);
-  if(domainData){
-    return {
-      title: domainData.name,
+  let metadata: Metadata = {}
+  if (domainData) {
+    let title = domainData.name
+    const favicon = domainData.favicon
+    const pageData = domainData?.FunnelPages.find(
+      (page) => page.pathName === params.path
+    );
+    if (pageData)
+      title = `${pageData.name ? pageData.name + " | " : ""}${
+        domainData.name
+      } `;
+    metadata = {
+      title,
+      icons: favicon
+        ? [{ url: favicon, type: "image/x-icon" }]
+        : undefined,
     };
   }
-  return {}
+  return metadata;
 }
 
 const Page = async ({ params }: { params: { domain: string } }) => {

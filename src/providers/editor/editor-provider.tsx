@@ -242,21 +242,21 @@ type EditorProps = {
     favicon?: string | null
 }
 
-const EditorProvider = ({subaccountId, funnelId, pageDetails, children, favicon}: EditorProps) => {
+const EditorProvider = ({subaccountId, funnelId, pageDetails, children}: EditorProps) => {
     const [state, dispatch] = useReducer(editorReducer, initialState)
 
- useEffect(() => {
-   const link =
-     document.querySelector("link[rel*='icon']") ||
-     document.createElement("link");
-   link.setAttribute("rel", "icon");
-   link.setAttribute("href", favicon || "/favicon.ico");
-   document.head.appendChild(link);
+//  useEffect(() => {
+//    const link =
+//      document.querySelector("link[rel*='icon']") ||
+//      document.createElement("link");
+//    link.setAttribute("rel", "icon");
+//    link.setAttribute("href", favicon || "/favicon.ico");
+//    document.head.appendChild(link);
 
-   return () => {
-    link.setAttribute("href", "/favicon.ico");
-   }
- }, [favicon]);
+//    return () => {
+//     link.setAttribute("href", "/favicon.ico");
+//    }
+//  }, [favicon]);
 
     return (
         <EditorContext.Provider
