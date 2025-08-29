@@ -11,23 +11,25 @@ export default clerkMiddleware(async (auth, req) => {
     "/agency/sign-up",
   ];
 
-  if (!publicRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
-    await auth.protect();
-  }
-
+  
+  
   // console.log({ route: req.nextUrl.pathname });
-
+  
   const url = req.nextUrl;
+  const hostname = req.headers.get("host");
   const searchParams = url.searchParams.toString();
   const pathWithSearchParams = `${url.pathname}${
     searchParams.length > 0 ? `?${searchParams}` : ""
   }`;
-  const hostname = req.headers.get("host");
-
+  
   const customSubDomain = hostname
-    ?.split(`${process.env.NEXT_PUBLIC_DOMAIN}`)
-    .filter(Boolean)[0]
-    ?.split(".")[0];
+  ?.split(`${process.env.NEXT_PUBLIC_DOMAIN}`)
+  .filter(Boolean)[0]
+  ?.split(".")[0];
+
+  if (!publicRoutes.some((route) => req.nextUrl.pathname.startsWith(route)) && !customSubDomain) {
+    await auth.protect();
+  }
 
   if (customSubDomain) {
     return NextResponse.rewrite(
