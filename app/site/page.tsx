@@ -28,7 +28,7 @@ export default async function Home() {
       product: "",
       recurring: {
         interval: 'month',
-        meter: null,
+        aggregate_usage: null,
         interval_count: 0,
         trial_period_days: 0,
         usage_type: 'licensed'
