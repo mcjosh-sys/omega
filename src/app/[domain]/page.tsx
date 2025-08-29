@@ -15,9 +15,7 @@ export async function generateMetadata({
   if (domainData) {
     let title = domainData.name
     const favicon = domainData.favicon
-    const pageData = domainData?.FunnelPages.find(
-      (page) => page.pathName === params.path
-    );
+    const pageData = domainData.FunnelPages.find((page) => !page.pathName);
     if (pageData)
       title = `${pageData.name ? pageData.name + " | " : ""}${
         domainData.name
